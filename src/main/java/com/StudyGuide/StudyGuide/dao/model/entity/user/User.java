@@ -10,46 +10,39 @@ import java.util.List;
 
 
 @Entity
-@Table(name="user", uniqueConstraints = {
-        @UniqueConstraint(name="uq_email",columnNames = {"email"})
-})
+@Setter @Getter
+@Table(name="user")
 public class User {
     @Column(name="user_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter @Getter
     private Long userId;
 
     @Column(name="email")
-    @Getter @Setter
     @NotNull
     private String email;
 
     @Column(name="uname")
-    @Getter @Setter
     @NotNull
     private String uname;
 
     @Column(name="password")
-    @Setter @Getter
     @NotNull
     private String password;
 
     @Column(name="first_name")
-    @Setter @Getter
     private String firstName;
 
     @Column(name="last_name")
-    @Setter @Getter
     private String lastName;
 
-    @ManyToMany
-            @JoinTable(
-                    name="user_test",
-                    joinColumns = @JoinColumn(name="user_user_id"),
-                    inverseJoinColumns = @JoinColumn(name="test_test_id")
-            )
-            @Setter @Getter
+       @ManyToMany
+    @JoinTable(
+            name="user_test",
+            joinColumns = @JoinColumn(name="user_user_id"),
+            inverseJoinColumns = @JoinColumn(name="test_test_id")
+    )
+
     private List<Test> userTest;
     public User(){}
 

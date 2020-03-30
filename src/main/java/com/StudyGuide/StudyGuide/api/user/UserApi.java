@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 
 @RestController
@@ -31,6 +32,18 @@ public class UserApi {
         }catch(Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(userDto, HttpStatus.BAD_REQUEST);
+        }
+        }
+        @GetMapping(value="/getAll", produces="application/json")
+        @ApiOperation(value="gets all the users")
+        @ApiResponses(value = {
+            @ApiResponse(code=200, message="Successfully retrieved all the users "),
+            @ApiResponse(code=400, message="unable to retrieve users ")})
+        private ResponseEntity<List<UserDto>> getUsers(){
+        try{
+            return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
         }
 

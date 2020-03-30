@@ -9,12 +9,12 @@ import java.util.List;
 
 @Entity
 @Table(name="answer")
+@Setter @Getter
 public class Answer {
     @Column(name="answer_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter
-    @Getter
+
     private Long answerId;
 
     @Column(name ="correct")
@@ -22,6 +22,9 @@ public class Answer {
 
     @Column(name="description")
     private String description;
+
+    @Column(name="answer")
+    private String answer;
 
     @ManyToMany(mappedBy = "questionAnswers", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY) @Setter @Getter
     List<Questions> testQuestions;
