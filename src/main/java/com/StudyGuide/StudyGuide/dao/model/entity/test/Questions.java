@@ -9,28 +9,27 @@ import java.util.List;
 
 
 @Entity
-@Table(name="question")
+@Table(name="question") @Setter @Getter
 public class Questions {
     @Column(name="question_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter @Getter
+
     private Long questionId;
 
     @Column(name="question")
-    @Getter @Setter
     private String Question;
 
-    @Getter @Setter
-    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-            @JoinTable(
-                    name="question_answer",
-                    joinColumns = @JoinColumn(name="question_question_id"),
-                    inverseJoinColumns =@JoinColumn(name="answer_answer_id")
-            )
-    List<Answer> questionAnswers;
-    @Setter @Getter
-    @ManyToMany(mappedBy = "testQuestions", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-    List<Test> questionTest;
+//    @Getter @Setter
+//    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+//            @JoinTable(
+//                    name="question_answer",
+//                    joinColumns = @JoinColumn(name="question_question_id"),
+//                    inverseJoinColumns =@JoinColumn(name="answer_answer_id")
+//            )
+//    List<Answer> questionAnswers;
+//    @Setter @Getter
+//    @ManyToMany(mappedBy = "testQuestions", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+//    List<Test> questionTest;
  }
 

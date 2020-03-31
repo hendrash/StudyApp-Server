@@ -6,30 +6,33 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name="test")
+@Table(name="test")@Setter @Getter
 public class Test {
 
 @Column(name="test_id")
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
-@Setter @Getter
+
 private Long testId;
 
 @Column(name="test_name")
-@Setter @Getter
 private String testName;
 
-@ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY) @Getter @Setter
-    @JoinTable(
-            name="test_question",
-            joinColumns = @JoinColumn(name="test_test_id"),
-            inverseJoinColumns = @JoinColumn(name="question_question_id")
-    )
-List<Questions> testQuestions;
+public Test(){}
 
-@Setter @Getter
+
+//@ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY) @Getter @Setter
+//    @JoinTable(
+//            name="test_question",
+//            joinColumns = @JoinColumn(name="test_test_id"),
+//            inverseJoinColumns = @JoinColumn(name="question_question_id")
+//    )
+//List<Questions> testQuestions;
+//
+//@Setter @Getter
 @ManyToMany(mappedBy = "userTest")
-List<User> testUser;
+Set<User> testUser;
 }
