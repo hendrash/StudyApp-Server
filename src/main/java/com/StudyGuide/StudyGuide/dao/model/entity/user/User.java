@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
-import java.util.List;
+
 import java.util.Set;
 
 
@@ -39,18 +39,10 @@ public class User {
     @Column(name="last_name")
     private String lastName;
 
-       @ManyToMany(fetch=FetchType.LAZY, cascade = {
-               CascadeType.PERSIST,
-               CascadeType.MERGE
-       })
-    @JoinTable(
-            name="user_test",
-            joinColumns = @JoinColumn(name="user_user_id", referencedColumnName = "user_id"),
-            inverseJoinColumns = @JoinColumn(name="test_test_id", referencedColumnName = "test_id")
-    )
-
+    @ManyToMany(mappedBy = "testUser")
     private Set<Test> userTest  = new HashSet<Test>();
-    public User(){}
+
+       public User(){}
 
     public User(Long userId, @NotNull String email, @NotNull String uname, @NotNull String password, String firstName, String lastName, Set<Test> userTest) {
         this.userId = userId;
@@ -60,5 +52,12 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userTest = userTest;
+    }
+    public User edit(User user){
+           this.firstName=user.getFirstName();
+           this.lastName= user.getLastName();
+           this.email= user.getEmail();
+           this.uname=user.getUname();
+           return this;
     }
 }

@@ -1,6 +1,7 @@
 package com.StudyGuide.StudyGuide.dao.model.entity.test;
 
 import com.StudyGuide.StudyGuide.dao.model.entity.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,28 +12,35 @@ import java.util.Set;
 @Entity
 @Table(name="test")@Setter @Getter
 public class Test {
+    public Test(){}
 
 @Column(name="test_id")
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
-
 private Long testId;
 
 @Column(name="test_name")
 private String testName;
 
-public Test(){}
 
 
-//@ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY) @Getter @Setter
-//    @JoinTable(
-//            name="test_question",
-//            joinColumns = @JoinColumn(name="test_test_id"),
-//            inverseJoinColumns = @JoinColumn(name="question_question_id")
-//    )
-//List<Questions> testQuestions;
-//
-//@Setter @Getter
-@ManyToMany(mappedBy = "userTest")
-Set<User> testUser;
+    @ManyToMany(fetch=FetchType.LAZY, cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(
+            name="test_user",
+            joinColumns = @JoinColumn(name="test_id", referencedColumnName = "test_id"),
+            inverseJoinColumns = @JoinColumn(name="user_id", referencedColumnName = "user_id")
+    )
+    Set<User> testUser;
+
+    @OneToMany(mappedBy = "testQuestions")
+    private Set<Questions> questionIds;
+
+   public Test edit(Test test){
+       test.testName=test.getTestName();
+       return this;
+    }
+
 }

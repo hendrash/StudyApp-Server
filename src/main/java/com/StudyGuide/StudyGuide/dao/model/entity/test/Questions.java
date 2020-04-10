@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -14,22 +15,15 @@ public class Questions {
     @Column(name="question_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long questionId;
 
     @Column(name="question")
     private String Question;
 
-//    @Getter @Setter
-//    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-//            @JoinTable(
-//                    name="question_answer",
-//                    joinColumns = @JoinColumn(name="question_question_id"),
-//                    inverseJoinColumns =@JoinColumn(name="answer_answer_id")
-//            )
-//    List<Answer> questionAnswers;
-//    @Setter @Getter
-//    @ManyToMany(mappedBy = "testQuestions", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-//    List<Test> questionTest;
+
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.LAZY)
+    @JoinColumn(name="test_id", referencedColumnName = "test_id", foreignKey=@ForeignKey(name="fk_test_id"))
+    Test testQuestions;
+
  }
 
