@@ -1,6 +1,7 @@
 package com.StudyGuide.StudyGuide.dao.model.entity.test;
 
 import com.StudyGuide.StudyGuide.dao.model.entity.user.User;
+import com.StudyGuide.StudyGuide.dto.test.TestDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,10 +37,10 @@ private String testName;
     Set<User> testUser;
 
     @OneToMany(mappedBy = "testQuestions")
-    private Set<Questions> questionIds;
+    private Set<Questions> questions;
 
-   public Test edit(Test test){
-       test.testName=test.getTestName();
+   public Test edit(TestDto test){
+       this.testName=test.getTestName();
        return this;
     }
 

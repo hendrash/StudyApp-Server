@@ -67,13 +67,12 @@ public class TestService {
         }).collect(Collectors.toList());
     }
 
-
     public void delete(Long testId){testRepository.deleteById(testId);}
-//
-//    public TestDto edit(TestDto testDto){
-//        Test test= testRepository.getOne(testDto.getTestId());
-//        test.edit(modelMapper.map(testDto, Test.class));
-//        testRepository.save(test);
-//        return testDto;
-//    }
+
+    public TestDto edit(TestDto testDto){
+            Test test= testRepository.getOne(testDto.getTestId());
+            test.edit(testDto);
+            testRepository.save(test);
+        return testDto;
+    }
 }

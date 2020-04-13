@@ -26,10 +26,9 @@ public class Answer {
     @Column(name="answer")
     private String answer;
 
-//    @ManyToMany(mappedBy = "questionAnswers", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-//    List<Questions> testQuestions;
 
-
-
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE}, fetch=FetchType.LAZY)
+    @JoinColumn(name="question_Id", referencedColumnName = "question_Id", foreignKey = @ForeignKey(name="fk_question_Id"))
+    Questions questionAnswers;
 
 }

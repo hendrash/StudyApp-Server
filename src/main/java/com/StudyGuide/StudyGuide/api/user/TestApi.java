@@ -5,6 +5,7 @@ import com.StudyGuide.StudyGuide.dto.user.UserDto;
 import com.StudyGuide.StudyGuide.service.test.TestService;
 import com.StudyGuide.StudyGuide.utility.HeaderUtil;
 import com.sun.mail.iap.Response;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Set;
 
@@ -64,6 +66,24 @@ public class TestApi {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @CrossOrigin
+    @PutMapping(value="/update", produces = "application/json")
+    @ApiOperation(value="update test")
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="Successfully updated test", response = TestDto.class),
+            @ApiResponse(code=400, message="faliked to update test")
+    })
+    public ResponseEntity<TestDto> updateTest(@RequestBody TestDto testDto){
+        System.out.println(testDto.getTestName());
+        try{
+            return ResponseEntity.created(new URI("/api/test/update"+testDto.getTestId())).body(testService.edit(testDto));
+        }catch(Exception ex){
+return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
 
 
 

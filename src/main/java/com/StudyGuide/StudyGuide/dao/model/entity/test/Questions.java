@@ -1,11 +1,11 @@
 package com.StudyGuide.StudyGuide.dao.model.entity.test;
 
 
+import com.StudyGuide.StudyGuide.dto.test.QuestionsDto;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 
@@ -18,12 +18,19 @@ public class Questions {
     private Long questionId;
 
     @Column(name="question")
-    private String Question;
+    private String question;
 
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     @JoinColumn(name="test_id", referencedColumnName = "test_id", foreignKey=@ForeignKey(name="fk_test_id"))
     Test testQuestions;
 
+    @OneToMany(mappedBy = "questionAnswers")
+    private Set<Answer> Answer;
+
+    public Questions edit(QuestionsDto questionDto){
+        this.question=questionDto.getQuestion();
+        return this;
+    }
  }
 
