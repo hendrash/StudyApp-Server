@@ -36,7 +36,7 @@ private String testName;
     )
     Set<User> testUser;
 
-    @OneToMany(mappedBy = "testQuestions")
+    @OneToMany(mappedBy = "testQuestions", cascade={CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE})
     private Set<Questions> questions;
 
    public Test edit(TestDto test){

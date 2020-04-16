@@ -20,12 +20,14 @@ public class Questions {
     @Column(name="question")
     private String question;
 
+    @Column(name="hint")
+    private String hint;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name="test_id", referencedColumnName = "test_id", foreignKey=@ForeignKey(name="fk_test_id"))
     Test testQuestions;
 
-    @OneToMany(mappedBy = "questionAnswers")
+    @OneToMany(mappedBy = "questionAnswers", cascade={CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE})
     private Set<Answer> Answer;
 
     public Questions edit(QuestionsDto questionDto){

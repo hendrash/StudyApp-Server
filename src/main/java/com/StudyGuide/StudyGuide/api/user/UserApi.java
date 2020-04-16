@@ -78,6 +78,7 @@ public class UserApi {
                     .headers(HeaderUtil.createEntityUpdateAlert("User","Update User"))
                     .body(userService.edit(userDto));       }
         catch(Exception ex){
+            ex.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
             }
         }

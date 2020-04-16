@@ -1,8 +1,11 @@
 package com.StudyGuide.StudyGuide.service.test;
 
+import com.StudyGuide.StudyGuide.dao.model.entity.test.Answer;
 import com.StudyGuide.StudyGuide.dao.model.entity.test.Questions;
+import com.StudyGuide.StudyGuide.dao.repository.test.AnswerRepository;
 import com.StudyGuide.StudyGuide.dao.repository.test.QuestionRepository;
 import com.StudyGuide.StudyGuide.dao.repository.test.TestRepository;
+import com.StudyGuide.StudyGuide.dto.test.AnswerDto;
 import com.StudyGuide.StudyGuide.dto.test.QuestionsDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,8 @@ public class QuestionService {
     @Autowired
     TestRepository testRepository;
     @Autowired
+    AnswerRepository answerRepository;
+    @Autowired
     ModelMapper modelMapper;
 
     public  Questions addQuestion(Questions question){
@@ -32,7 +37,17 @@ public class QuestionService {
 
     public QuestionsDto create(QuestionsDto questionsDto){
         Questions questions = modelMapper.map(questionsDto, Questions.class);
+        questions.setTestQuestions(testRepository.getOne(questionsDto.getTestId()));
+
         questionRepository.save(questions);
+        questionsDto.getAnswer().stream().forEach(t->{
+            Answer answer = modelMapper.map(t, Answer.class);
+            if(answer.getCorrect()==null)
+                answer.setCorrect(false);
+            answer.setQuestionAnswers(questions);
+            answerRepository.save(answer);
+        });
+
         return questionsDto;
     }
 
@@ -50,5 +65,8 @@ public class QuestionService {
         questions.edit(questionsDto);
         questionRepository.save(questions);
         return questionsDto;
+    }
+    public QuestionsDto getQuestion(Long questionId ){
+        return modelMapper.map(questionRepository.getOne(questionId), QuestionsDto.class);
     }
 }

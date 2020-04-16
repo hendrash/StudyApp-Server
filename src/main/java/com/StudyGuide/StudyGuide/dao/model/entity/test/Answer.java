@@ -27,7 +27,7 @@ public class Answer {
     private String answer;
 
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE}, fetch=FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH}, fetch=FetchType.LAZY)
     @JoinColumn(name="question_Id", referencedColumnName = "question_Id", foreignKey = @ForeignKey(name="fk_question_Id"))
     Questions questionAnswers;
 

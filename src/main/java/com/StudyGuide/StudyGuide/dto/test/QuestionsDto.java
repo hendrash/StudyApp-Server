@@ -21,8 +21,8 @@ import java.util.Set;
 public class QuestionsDto {
     private Long questionId;
     private String question;
-    Test testQuestions;
-
+    private Long testId;
+    private String hint;
     Set<AnswerDto> Answer;
     QuestionsDto(){}
 }
