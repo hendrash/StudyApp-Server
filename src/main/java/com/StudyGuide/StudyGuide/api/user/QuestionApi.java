@@ -52,7 +52,7 @@ public class QuestionApi {
     }
     @CrossOrigin
     @DeleteMapping(value = "/delete", produces = "application/json")
-    @ApiOperation(value="delet a Question from the list")
+    @ApiOperation(value="delete a Question from the list")
     @ApiResponses(value={
             @ApiResponse(code=200, message = "Successfully delete a question"),
             @ApiResponse(code=400, message = "failed to remove question")

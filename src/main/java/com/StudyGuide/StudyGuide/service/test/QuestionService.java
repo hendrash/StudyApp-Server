@@ -63,9 +63,18 @@ public class QuestionService {
     public QuestionsDto edit(QuestionsDto questionsDto){
         Questions questions = questionRepository.getOne(questionsDto.getQuestionId());
         questions.edit(questionsDto);
+        System.out.println(questionsDto.getAnswer());
         questions.setAnswer(questionsDto.getAnswer().stream().map(t-> {
-            Answer answer = answerRepository.getOne(t.getAnswerId()).edit(t);
-            answerRepository.save(answer);
+            Answer answer ;
+            if(t.getAnswerId()==null){
+                answer = modelMapper.map(t, Answer.class);
+               if(answer.getCorrect()==null){
+                   answer.setCorrect(false);
+                   answer.setQuestionAnswers(modelMapper.map(questionsDto, Questions.class));
+                   answerRepository.save(answer);
+               }
+            }else{
+            answerRepository.save(answer=answerRepository.getOne(t.getAnswerId()).edit(t));}
             return answer;
         }).collect(Collectors.toSet()));
         questionRepository.save(questions);

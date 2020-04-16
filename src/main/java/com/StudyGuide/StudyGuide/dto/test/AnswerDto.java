@@ -9,5 +9,6 @@ public class AnswerDto {
     private Boolean correct;
     private String description;
     private String answer;
+    private QuestionsDto questionAnswers;
     AnswerDto(){}
 }

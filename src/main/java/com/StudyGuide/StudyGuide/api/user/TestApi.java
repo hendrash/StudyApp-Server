@@ -72,10 +72,9 @@ public class TestApi {
     @ApiOperation(value="update test")
     @ApiResponses(value={
             @ApiResponse(code=200, message="Successfully updated test", response = TestDto.class),
-            @ApiResponse(code=400, message="faliked to update test")
+            @ApiResponse(code=400, message="failed to update test")
     })
     public ResponseEntity<TestDto> updateTest(@RequestBody TestDto testDto){
-        System.out.println(testDto.getTestName());
         try{
             return ResponseEntity.created(new URI("/api/test/update"+testDto.getTestId())).body(testService.edit(testDto));
         }catch(Exception ex){
