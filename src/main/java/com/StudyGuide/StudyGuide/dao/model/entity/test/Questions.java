@@ -4,6 +4,9 @@ package com.StudyGuide.StudyGuide.dao.model.entity.test;
 import com.StudyGuide.StudyGuide.dto.test.QuestionsDto;
 import lombok.Getter;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -28,10 +31,12 @@ public class Questions {
     Test testQuestions;
 
     @OneToMany(mappedBy = "questionAnswers", cascade={CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE})
-    private Set<Answer> Answer;
+    private Set<Answer> answer;
+
 
     public Questions edit(QuestionsDto questionDto){
         this.question=questionDto.getQuestion();
+        this.hint=questionDto.getHint();
         return this;
     }
  }

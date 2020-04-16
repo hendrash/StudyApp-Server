@@ -38,7 +38,6 @@ public class QuestionService {
     public QuestionsDto create(QuestionsDto questionsDto){
         Questions questions = modelMapper.map(questionsDto, Questions.class);
         questions.setTestQuestions(testRepository.getOne(questionsDto.getTestId()));
-
         questionRepository.save(questions);
         questionsDto.getAnswer().stream().forEach(t->{
             Answer answer = modelMapper.map(t, Answer.class);
@@ -60,13 +59,20 @@ public class QuestionService {
     public void delete(Long questionId){
         questionRepository.deleteById(questionId);
     }
+
     public QuestionsDto edit(QuestionsDto questionsDto){
         Questions questions = questionRepository.getOne(questionsDto.getQuestionId());
         questions.edit(questionsDto);
+        questions.setAnswer(questionsDto.getAnswer().stream().map(t-> {
+            Answer answer = answerRepository.getOne(t.getAnswerId()).edit(t);
+            answerRepository.save(answer);
+            return answer;
+        }).collect(Collectors.toSet()));
         questionRepository.save(questions);
         return questionsDto;
     }
     public QuestionsDto getQuestion(Long questionId ){
+
         return modelMapper.map(questionRepository.getOne(questionId), QuestionsDto.class);
     }
 }

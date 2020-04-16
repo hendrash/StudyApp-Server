@@ -1,6 +1,8 @@
 package com.StudyGuide.StudyGuide.dao.model.entity.test;
 
 
+import com.StudyGuide.StudyGuide.dto.test.AnswerDto;
+import com.StudyGuide.StudyGuide.dto.test.QuestionsDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,9 +28,14 @@ public class Answer {
     @Column(name="answer")
     private String answer;
 
-
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH}, fetch=FetchType.LAZY)
     @JoinColumn(name="question_Id", referencedColumnName = "question_Id", foreignKey = @ForeignKey(name="fk_question_Id"))
     Questions questionAnswers;
 
+    public Answer edit(AnswerDto answerDto){
+        this.description=answerDto.getDescription();
+        this.answer=answerDto.getAnswer();
+        this.correct=answerDto.getCorrect();
+        return this;
+    }
 }

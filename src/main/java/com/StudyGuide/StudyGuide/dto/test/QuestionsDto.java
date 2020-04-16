@@ -23,6 +23,6 @@ public class QuestionsDto {
     private String question;
     private Long testId;
     private String hint;
-    Set<AnswerDto> Answer;
+    Set<AnswerDto> answer;
     QuestionsDto(){}
 }
