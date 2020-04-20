@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -24,7 +25,7 @@ public class Answer {
 
     @Column(name="description")
     private String description;
-
+    @NotNull
     @Column(name="answer")
     private String answer;
 

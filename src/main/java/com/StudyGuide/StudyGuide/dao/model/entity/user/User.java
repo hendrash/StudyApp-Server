@@ -13,7 +13,9 @@ import java.util.Set;
 
 @Entity
 @Setter @Getter
-@Table(name="user")
+@Table(name="user", uniqueConstraints = {
+        @UniqueConstraint(name = "uq_user_id",columnNames = {"uname"})
+})
 
 public class User {
     @Column(name="user_id")
@@ -33,9 +35,11 @@ public class User {
     @NotNull
     private String password;
 
+    @NotNull
     @Column(name="first_name")
     private String firstName;
 
+    @NotNull
     @Column(name="last_name")
     private String lastName;
 

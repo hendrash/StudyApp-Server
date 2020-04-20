@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 
@@ -20,6 +21,7 @@ public class Questions {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionId;
 
+    @NotNull
     @Column(name="question")
     private String question;
 

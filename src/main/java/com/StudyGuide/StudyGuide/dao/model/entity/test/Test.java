@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Set;
 
@@ -20,8 +21,9 @@ public class Test {
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long testId;
 
-@Column(name="test_name")
-private String testName;
+    @NotNull
+    @Column(name="test_name")
+    private String testName;
 
 
 
